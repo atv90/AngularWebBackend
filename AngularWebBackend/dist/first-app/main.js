@@ -72,7 +72,7 @@ var AppComponent = /** @class */ (function () {
     function AppComponent(http) {
         this.http = http;
         this.title = 'Ensimmäinen Angular-sovellus';
-        //määritellää orderCount-ominaisuus, jolle asetetaan lähtöarvo
+        //määritellään orderCount-ominaisuus, jolle asetetaan lähtöarvo
         this.orderCount = -1;
     }
     AppComponent.prototype.ngOnInit = function () {

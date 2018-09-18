@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
     title: string = 'Ensimmäinen Angular-sovellus';
-    //määritellää orderCount-ominaisuus, jolle asetetaan lähtöarvo
+    //määritellään orderCount-ominaisuus, jolle asetetaan lähtöarvo
     orderCount: number = -1;
 
     constructor(private http: HttpClient) {
