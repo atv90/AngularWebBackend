@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AngularWebBackend.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -12,8 +13,14 @@ namespace AngularWebBackend.Controllers
         [HttpGet] //mahdollistaa GET-pyynnöt
         public int OrderCount()
         {
-
-            return -1;
+            //tietokantayhteys alustaminen
+            NorthwindEntities entities = new NorthwindEntities();
+            //paikallinen muuttuja, joka laskee tilausten lkm:n Orders-taulusta
+            int orderCount = entities.Orders.Count();
+            //vapautetaan muisti, tietokantayhteyden sulkeminen
+            entities.Dispose();
+            //palautetaan tulos
+            return orderCount;
         }
 
 
