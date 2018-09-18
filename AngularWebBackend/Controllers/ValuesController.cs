@@ -12,6 +12,7 @@ namespace AngularWebBackend.Controllers
         [HttpGet] //mahdollistaa GET-pyynnöt
         public int OrderCount()
         {
+
             return -1;
         }
 
