@@ -41,7 +41,7 @@ module.exports = "h1 {\r\n    color: aqua;\r\n    font-size: 50px;\r\n}"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div style=\"text-align:center\">\n  <h1>\n    Tervetuloa {{ title }}!\n  </h1>\n\n    <!--määrittele orderCount app.component.ts -tiedoston export class -luokan ominaisuuksiin-->\n    <p>Tilausten lukumäärä: {{orderCount}}</p>\n\n\n  <!--<img width=\"300\" alt=\"Angular Logo\" src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==\">-->\n</div>\n<!--<h2>Hyödyllisiä linkkejä: </h2>\n<ul>\n  <li>\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://angular.io/tutorial\">Tour of Heroes</a></h2>\n  </li>\n  <li>\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://github.com/angular/angular-cli/wiki\">CLI Documentation</a></h2>\n  </li>\n  <li>\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://blog.angular.io/\">Angular blog</a></h2>\n  </li>\n</ul>-->\n\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div style=\"text-align:center\">\r\n    <h1>\r\n        Tervetuloa {{ title }}!\r\n    </h1>\r\n    <!--määrittele orderCount app.component.ts -tiedoston export class -luokan ominaisuuksiin-->\r\n    <p>Tilausten lukumäärä: {{orderCount}}</p>\r\n    <p>Viimeisimmät tilauksen tehneet asiakkaat:</p>\r\n    <ul>\r\n        <li *ngFor=\"let customer of customers\">\r\n            {{customer}}\r\n        </li>\r\n    </ul>\r\n\r\n    <!--<img width=\"300\" alt=\"Angular Logo\" src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==\">-->\r\n</div>\n<!--<h2>Hyödyllisiä linkkejä: </h2>\n<ul>\n  <li>\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://angular.io/tutorial\">Tour of Heroes</a></h2>\n  </li>\n  <li>\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://github.com/angular/angular-cli/wiki\">CLI Documentation</a></h2>\n  </li>\n  <li>\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://blog.angular.io/\">Angular blog</a></h2>\n  </li>\n</ul>-->\n\n"
 
 /***/ }),
 
@@ -74,6 +74,8 @@ var AppComponent = /** @class */ (function () {
         this.title = 'Ensimmäinen Angular-sovellus';
         //määritellään orderCount-ominaisuus, jolle asetetaan lähtöarvo
         this.orderCount = -1;
+        //customers taulukon alustus tyhjäksi taulukoksi
+        this.customers = [];
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -81,6 +83,11 @@ var AppComponent = /** @class */ (function () {
         this.http.get('/api/values/ordercount').subscribe(function (data) {
             //read the result field from the JSON response.
             _this.orderCount = parseInt(data.toString());
+        });
+        //Make the HTTP request:
+        this.http.get('/api/values/lastnorders/5').subscribe(function (data) {
+            //read the result field from the JSON response.
+            _this.customers = data;
         });
     };
     AppComponent = __decorate([

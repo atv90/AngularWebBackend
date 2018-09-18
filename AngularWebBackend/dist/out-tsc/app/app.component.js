@@ -15,6 +15,8 @@ var AppComponent = /** @class */ (function () {
         this.title = 'Ensimmäinen Angular-sovellus';
         //määritellään orderCount-ominaisuus, jolle asetetaan lähtöarvo
         this.orderCount = -1;
+        //customers taulukon alustus tyhjäksi taulukoksi
+        this.customers = [];
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -22,6 +24,11 @@ var AppComponent = /** @class */ (function () {
         this.http.get('/api/values/ordercount').subscribe(function (data) {
             //read the result field from the JSON response.
             _this.orderCount = parseInt(data.toString());
+        });
+        //Make the HTTP request:
+        this.http.get('/api/values/lastnorders/5').subscribe(function (data) {
+            //read the result field from the JSON response.
+            _this.customers = data;
         });
     };
     AppComponent = __decorate([
