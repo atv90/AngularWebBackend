@@ -10,7 +10,9 @@ namespace AngularWebBackend.Controllers
 {
     public class ValuesController : ApiController
     {
+        //palautetaan numeroarvo
         [HttpGet] //mahdollistaa GET-pyynnöt
+        [Route("api/Values/OrderCount")] //reitin määritys
         public int OrderCount()
         {
             //tietokantayhteys alustaminen
@@ -21,6 +23,31 @@ namespace AngularWebBackend.Controllers
             entities.Dispose();
             //palautetaan tulos
             return orderCount;
+        }
+
+        //palautetaan lista asiakkaista
+        [HttpGet] //mahdollistaa GET-pyynnöt
+        [Route("api/Values/LastNOrders/{id:int}")] //reitin määritys
+        public List<string> LastNOrders(int id) //käytetään parametrina int, koska AppStart/WebApiConfigissa routeTemplate: "api/{controller}/{id}",
+        {
+            //tietokantayhteys alustaminen
+            NorthwindEntities entities = new NorthwindEntities();
+            //muuttujan alustus
+            int numberOfOrdersToReturn = id;
+            //lista-muuttuja, joka lajittelee tulokset tilauspäivän mukaan laskevasti 
+            //Orders -taulusta ja palauttaa niistä 5 Take-funktiolla
+            
+            List<Orders> lastOrders = (from o in entities.Orders
+                                       orderby o.OrderDate descending
+                                       select o).Take(numberOfOrdersToReturn).ToList();
+
+            //pyydetään Orders-taulun tiedoista pelkästään CompanyName asiakastaulun kautta
+            List<string> customerNames = lastOrders.Select(o => o.Customers.CompanyName).ToList();
+
+            //vapautetaan muisti, tietokantayhteyden sulkeminen
+            entities.Dispose();
+            //palautetaan tulos
+            return customerNames;
         }
 
 
