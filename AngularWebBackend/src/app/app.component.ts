@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Ensimmäinen Angular-sovellus';
+    title = 'Ensimmäinen Angular-sovellus';
+    //määritellää orderCount-ominaisuus, jolle asetetaan lähtöarvo
+    orderCount = -1;
 }
